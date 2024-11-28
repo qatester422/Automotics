@@ -11,11 +11,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -24,10 +24,12 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci  # Clean install
-          npx cypress verify  # Verify Cypress installation
+
+      - name: Install Cypress
+        run: npm install --save-dev cypress
 
       - name: Install Chrome
-        run: sudo apt-get install -y google-chrome-stable  # Ensure Chrome is installed
+        run: sudo apt-get install -y google-chrome-stable
 
       - name: Run tests
         run: npx cypress run --browser chrome
